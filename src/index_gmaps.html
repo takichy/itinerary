@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> trace itinéraire - Cirkwi</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <script src="./markerclustererplus@4.0.1.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js"></script>
+        
+        <script>
+            const wayPoints = [];
+            const simplePoints = [];
+    
+            let getXMLFile = function(path, callback){
+                let request = new XMLHttpRequest();
+                request.open('GET',path);
+                request.setRequestHeader('Content-Type','text/gpx');
+                request.onreadystatechange = function(){
+                    if(request.readyState === 4 && request.status === 200){
+                        const parser = new DOMParser();
+                        const xmlDoc = parser.parseFromString(request.responseText, "application/xml");
+                        callback(xmlDoc);
+                    }
+                };
+                request.send();
+            };
+        
+            getXMLFile('Cirkwifile.gpx',function(xml){
+                xml.querySelectorAll('wpt').forEach(element => {
+                    var waypoint = new google.maps.LatLng(element.attributes.lat.value, element.attributes.lon.value);
+                    wayPoints.push(waypoint);
+                });
+    
+                xml.querySelectorAll('trkpt').forEach(element => {
+                    var simplepoint = new google.maps.LatLng(element.attributes.lat.value, element.attributes.lon.value);
+                    simplePoints.push(simplepoint);
+                });
+
+                xml.querySelectorAll('metadata').forEach(element => {
+                    var name = element.querySelectorAll('name')[0].textContent;
+                    document.getElementById("name").innerHTML=name;
+                });
+
+                xml.querySelectorAll('author').forEach(element => {
+                    var name_author = element.querySelectorAll('name')[0].textContent;
+                    document.getElementById("author").innerHTML = name_author;
+                });
+            });
+            
+    
+            type_itinerary = google.maps.MapTypeId.ROADMAP;
+    
+            function init(){
+                var mapProp = {center: simplePoints[0], zoom:10, mapTypeId: type_itinerary};
+                var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+    
+                var trj = new google.maps.Polyline({
+                    path: simplePoints,
+                    strokeColor:"blue",
+                    strokeOpacity: 0.5,
+                    strokeWeight:5
+                });
+                trj.setMap(map);
+    
+                var markers = wayPoints.map(function(point) {
+                    return new google.maps.Marker({
+                        position: point,
+                    });
+                });
+    
+                var markerCluster = new MarkerClusterer(map, markers);
+            }
+    
+            google.maps.event.addDomListener(window, 'load', init);
+    
+        </script>
+        
+    </head>
+
+    <body>
+        <h3 id="name"></h1>
+        <h4 id="author"></h6>
+        <div id="googleMap" style="width: 83%; height: 492px; margin: auto;"></div>
+    </body>
+</html>
