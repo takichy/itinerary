@@ -5,7 +5,7 @@ Pour lancer le projet localement vous aurez besoin de le mettre dans un serveur 
 Vous pouvez voir ici les deux screenshot du test :
 
                                             GOOGLE MAPS API
-![alt text](https://raw.githubusercontent.com/takichy/trace_itin-raire/master/./images/image_maps.png)
+![alt text](https://raw.githubusercontent.com/takichy/itinerary_cirkwi/master/./images/image_maps.png)
 
                                             OpenLayer3 API
-![alt text](https://raw.githubusercontent.com/takichy/trace_itin-raire/master/./images/image_openlayer.png)# itinerary_cirkwi
+![alt text](https://raw.githubusercontent.com/takichy/itinerary_cirkwi/master/./images/image_openlayer.png)# itinerary_cirkwi
