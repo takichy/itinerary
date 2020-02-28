@@ -8,4 +8,4 @@ Vous pouvez voir ici les deux screenshot du test :
 ![alt text](https://raw.githubusercontent.com/takichy/itinerary_cirkwi/master/./images/image_maps.png)
 
                                             OpenLayer3 API
-![alt text](https://raw.githubusercontent.com/takichy/itinerary_cirkwi/master/./images/image_openlayer.png)# itinerary_cirkwi
+![alt text](https://raw.githubusercontent.com/takichy/itinerary_cirkwi/master/./images/image_openlayer.png)
